@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-//import 'login_screen.dart';
+import 'login_screen.dart';
 import 'registration_screen.dart';
+import 'welcome_screen.dart';
+import 'Card.dart' as Card;
 
 void main() => runApp(MyApp());
 
@@ -22,6 +24,71 @@ class _EntryState extends State<Entry> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: WelcomeScreen.id,
+      routes: {
+        WelcomeScreen.id: (context) => Scaffold(
+            appBar: AppBar(
+              title: Text('Mess Card'),
+              centerTitle: true,
+              actions: <Widget>[
+                Switch(
+                    value: isDark,
+                    onChanged: (val) {
+                      setState(() {
+                        isDark = !isDark;
+                      });
+                    }),
+              ],
+            ),
+            body: WelcomeScreen(
+              isDark: isDark,
+            )),
+        LoginScreen.id: (context) => Scaffold(
+            appBar: AppBar(
+              title: Text('Mess Card'),
+              centerTitle: true,
+              actions: <Widget>[
+                Switch(
+                    value: isDark,
+                    onChanged: (val) {
+                      setState(() {
+                        isDark = !isDark;
+                      });
+                    }),
+              ],
+            ),
+            body: LoginScreen()),
+        RegistrationScreen.id: (context) => Scaffold(
+            appBar: AppBar(
+              title: Text('Mess Card'),
+              centerTitle: true,
+              actions: <Widget>[
+                Switch(
+                    value: isDark,
+                    onChanged: (val) {
+                      setState(() {
+                        isDark = !isDark;
+                      });
+                    }),
+              ],
+            ),
+            body: RegistrationScreen()),
+        Card.Card.id: (context) => Scaffold(
+            appBar: AppBar(
+              title: Text('Mess Card'),
+              centerTitle: true,
+              actions: <Widget>[
+                Switch(
+                    value: isDark,
+                    onChanged: (val) {
+                      setState(() {
+                        isDark = !isDark;
+                      });
+                    }),
+              ],
+            ),
+            body: Card.Card()),
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -31,22 +98,6 @@ class _EntryState extends State<Entry> {
 //          brightness: Brightness.dark,
 //          accentColor: Colors.red,
 //          toggleableActiveColor: Colors.red),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Mess Card'),
-          centerTitle: true,
-          actions: <Widget>[
-            Switch(
-                value: isDark,
-                onChanged: (val) {
-                  setState(() {
-                    isDark = !isDark;
-                  });
-                }),
-          ],
-        ),
-        body: RegistrationScreen(),
-      ),
     );
   }
 }

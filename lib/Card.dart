@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'Day.dart';
 
-class Card extends StatefulWidget {
+class MessCard extends StatefulWidget {
   static const String id = "Mess_Card";
   @override
   _CardState createState() => _CardState();
 }
 
-class _CardState extends State<Card> {
+class _CardState extends State<MessCard> {
   @override
   Widget build(BuildContext context) {
     return Container(

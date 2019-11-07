@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'rounded_button.dart';
 import 'constants.dart';
-import 'package:mess_card/Card.dart' as Card;
+import 'package:mess_card/Card.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 //import 'chat_screen.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
 //                      password: password,
 //                    );
 //                    if (user != null) {
-                  Navigator.pushNamed(context, Card.Card.id);
+                  Navigator.pushNamed(context, MessCard.id);
 //                    }
 //                    setState(() {
 //                      showSpinner = false;

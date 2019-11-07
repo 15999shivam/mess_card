@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'rounded_button.dart';
 import 'constants.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:mess_card/Card.dart' as Card;
+import 'package:mess_card/Card.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = "registration_screen";
@@ -75,7 +75,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 //                    final newUser = await _auth.createUserWithEmailAndPassword(
 //                        email: email, password: password);
 //                    if (newUser != null) {
-                  Navigator.pushNamed(context, Card.Card.id);
+                  Navigator.pushNamed(context, MessCard.id);
 //                    }
 //                    setState(() {
 //                      showSpinner = false;

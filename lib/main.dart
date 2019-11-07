@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
 import 'welcome_screen.dart';
-import 'Card.dart' as Card;
+import 'Card.dart';
 
 void main() => runApp(MyApp());
 
@@ -73,7 +73,7 @@ class _EntryState extends State<Entry> {
               ],
             ),
             body: RegistrationScreen()),
-        Card.Card.id: (context) => Scaffold(
+        MessCard.id: (context) => Scaffold(
             appBar: AppBar(
               title: Text('Mess Card'),
               centerTitle: true,
@@ -87,7 +87,7 @@ class _EntryState extends State<Entry> {
                     }),
               ],
             ),
-            body: Card.Card()),
+            body: MessCard()),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

@@ -11,8 +11,9 @@ class Day extends StatefulWidget {
 class _DayState extends State<Day> {
   bool breakfast = false;
   bool lunch = false;
-  bool snacks = false;
+  bool tea = false;
   bool dinner = false;
+  bool sweet = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,18 +58,32 @@ class _DayState extends State<Day> {
             children: <Widget>[
               Text("T"),
               MealBox(
-                  isChecked: snacks,
-                  onChange: (val) {
-                    setState(() {
-                      snacks = !snacks;
-                    });
-                  }),
+                isChecked: tea,
+                onChange: (val) {
+                  setState(() {
+                    tea = !tea;
+                  });
+                },
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
               Text("D"),
               MealBox(
                   isChecked: dinner,
                   onChange: (val) {
                     setState(() {
                       dinner = !dinner;
+                    });
+                  }),
+              Text("S"),
+              MealBox(
+                  isChecked: sweet,
+                  onChange: (val) {
+                    setState(() {
+                      sweet = !sweet;
                     });
                   }),
             ],

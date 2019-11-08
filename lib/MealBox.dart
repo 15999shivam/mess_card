@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class MealBox extends StatelessWidget {
   MealBox({this.isChecked, this.onChange});
@@ -21,8 +22,11 @@ class MealBox extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       FlatButton(
-                        onPressed: () {
-                          onChange(false);
+                        onPressed: () async {
+                          http.Response res = await http
+                              .get(Uri.parse("http://192.168.43.238:8080"));
+                          print(res.body.toString());
+                          onChange(true);
                           Navigator.of(context).pop();
                         },
                         child: Container(

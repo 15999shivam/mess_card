@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart';
-import 'registration_screen.dart';
+import 'package:mess_card/loginsystem/login_screen.dart';
+import 'package:mess_card/loginsystem/registration_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'rounded_button.dart';
+import 'package:mess_card/components/rounded_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   WelcomeScreen({this.isDark});

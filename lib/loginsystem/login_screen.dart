@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
-import 'rounded_button.dart';
-import 'constants.dart';
+import 'package:mess_card/components/rounded_button.dart';
+import '../constants.dart';
+import 'package:mess_card/messcard/Card.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:mess_card/Card.dart';
 
-class RegistrationScreen extends StatefulWidget {
-  static const String id = "registration_screen";
+class LoginScreen extends StatefulWidget {
+  static const String id = "login_screen";
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   bool showSpinner = false;
   String email;
   String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 //      backgroundColor: Colors.white,
+//      resizeToAvoidBottomPadding: true,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -65,16 +67,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                color: Colors.blueAccent,
+                color: Colors.lightBlueAccent,
                 function: () async {
-//                print(email + "  " + password);
 //                  setState(() {
 //                    showSpinner = true;
 //                  });
 //                  try {
-//                    final newUser = await _auth.createUserWithEmailAndPassword(
-//                        email: email, password: password);
-//                    if (newUser != null) {
+//                    final user = await _auth.signInWithEmailAndPassword(
+//                      email: email,
+//                      password: password,
+//                    );
+//                    if (user != null) {
                   Navigator.pushNamed(context, MessCard.id);
 //                    }
 //                    setState(() {
@@ -87,7 +90,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 //                    print(e);
 //                  }
                 },
-                text: 'Register',
+                text: 'Log In',
               ),
             ],
           ),

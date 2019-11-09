@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mess_card/MealBox.dart';
+import 'package:mess_card/messcard/MealBox.dart';
 
 class Day extends StatefulWidget {
   Day({this.day});

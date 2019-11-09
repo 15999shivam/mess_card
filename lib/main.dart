@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart';
-import 'registration_screen.dart';
-import 'welcome_screen.dart';
-import 'Card.dart';
+import 'package:mess_card/loginsystem/login_screen.dart';
+import 'package:mess_card/loginsystem/registration_screen.dart';
+import 'package:mess_card/loginsystem/welcome_screen.dart';
+import 'package:mess_card/messcard/Card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());

@@ -3,6 +3,7 @@ import 'login_screen.dart';
 import 'registration_screen.dart';
 import 'welcome_screen.dart';
 import 'Card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,6 +22,26 @@ class Entry extends StatefulWidget {
 
 class _EntryState extends State<Entry> {
   bool isDark = false;
+  SharedPreferences prefs;
+
+  void load() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isDark = prefs.getString('isDark') == 'true';
+    });
+  }
+
+  void change() async {
+    await prefs.setString('isDark', isDark.toString());
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,6 +57,7 @@ class _EntryState extends State<Entry> {
                     onChanged: (val) {
                       setState(() {
                         isDark = !isDark;
+                        change();
                       });
                     }),
               ],

@@ -14,17 +14,32 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   bool showSpinner = false;
-  String email = "";
-  String password = "";
-  String name = "";
-  String username;
-  String hostalname = "Marcopolo Boys Hostal";
-  String roomno;
+  String email = null;
+  String password = null;
+  String name = null;
+  String username = null;
+  String hostalname = "Select Your Hostel";
+  String roomno = null;
 
   double UsernameErrorHeight = 0;
   double EmailErrorHeight = 0;
   double PasswordErrorHEight = 0;
-  List<String> Hostals = ["Marcopolo Boys Hostal", "Vasco digama Boys Hostal"];
+  double nameErrorHeight = 0;
+  double roomErrorHeight = 0;
+  double hostalErrorHeight = 0;
+  List<String> Hostals = [
+    "Select Your Hostel",
+    "Marcopolo Boys Hostel",
+    "Vascodigama Boys Hostel",
+    "Columbs Boys Hostel",
+    "Armstrong Boys Hostel",
+    "Pacassio Hostel",
+    "Nightangle Hostel",
+    "Pi(A) Hostel",
+    "Pi(B) Hostel",
+    "Pi(C) Hostel",
+    "Machlin Boys Hostel",
+  ];
 
   void showUserNameError() {
     setState(() {
@@ -32,15 +47,69 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     });
   }
 
+  void showNameError() {
+    setState(() {
+      nameErrorHeight = 25;
+    });
+  }
+
+  void showRoomError() {
+    setState(() {
+      roomErrorHeight = 25;
+    });
+  }
+
   void showPasswordError() {
     setState(() {
-      PasswordErrorHEight = 25;
+      PasswordErrorHEight = 30;
     });
   }
 
   void showEmailError() {
     setState(() {
       EmailErrorHeight = 25;
+    });
+  }
+
+  void showHostalError() {
+    setState(() {
+      hostalErrorHeight = 25;
+    });
+  }
+
+  void hideUserNameError() {
+    setState(() {
+      UsernameErrorHeight = 0;
+    });
+  }
+
+  void hidePasswordError() {
+    setState(() {
+      PasswordErrorHEight = 0;
+    });
+  }
+
+  void hideEmailError() {
+    setState(() {
+      EmailErrorHeight = 0;
+    });
+  }
+
+  void hideRoomError() {
+    setState(() {
+      roomErrorHeight = 0;
+    });
+  }
+
+  void hideNameError() {
+    setState(() {
+      nameErrorHeight = 0;
+    });
+  }
+
+  void hideHostalError() {
+    setState(() {
+      hostalErrorHeight = 0;
     });
   }
 
@@ -67,107 +136,101 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               SizedBox(
                 height: 48.0,
               ),
-              TextField(
-                keyboardType: TextInputType.text,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  //Do something with the user input.
-                  name = value;
+              CustomInput(
+                keyBoardType: TextInputType.text,
+                setState: (val) {
+                  name = val;
                 },
-                decoration:
-                    kTextFileDecoration.copyWith(hintText: "Enter Your Name"),
+                labelText: "Name",
+                hintText: "Enter Your Name",
+                filedName: name,
+                errorHeight: nameErrorHeight,
+                errormessage: "Please Provide Name",
               ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  //Do something with the user input.
-                  username = value;
+              CustomInput(
+                keyBoardType: TextInputType.number,
+                hintText: "Enter Your Username(Roll No.)",
+                labelText: "Enter Username",
+                setState: (val) {
+//                    print(val);
+                  username = val;
                 },
-                decoration: kTextFileDecoration.copyWith(
-                    hintText: "Enter Your Username(Roll No.)"),
+                filedName: username,
+                errorHeight: UsernameErrorHeight,
+                errormessage: "Provide a 10 digit username",
+              ),
+              CustomInput(
+                keyBoardType: TextInputType.emailAddress,
+                errorHeight: EmailErrorHeight,
+                filedName: email,
+                hintText: "Enter Your Email",
+                labelText: "Email",
+                setState: (val) {
+                  email = val;
+                },
+                errormessage: "Provide chitkara email id",
+              ),
+              CustomInput(
+                  keyBoardType: TextInputType.visiblePassword,
+                  errormessage:
+                      "Password must contain 1 special character,A-Z and 0-9",
+                  setState: (val) {
+                    password = val;
+                  },
+                  labelText: "Password",
+                  hintText: "Enter Your Password",
+                  filedName: password,
+                  errorHeight: PasswordErrorHEight,
+                  obsecure: true),
+              CustomInput(
+                errorHeight: roomErrorHeight,
+                filedName: roomno,
+                hintText: "Enter Your Room No.",
+                labelText: "Room No.",
+                setState: (val) {
+                  roomno = val;
+                },
+                keyBoardType: TextInputType.number,
+                errormessage: "Please Provide Room No.",
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32.0),
+                  border: Border.all(
+                      color: Colors.lightBlueAccent,
+                      style: BorderStyle.solid,
+                      width: 1),
+                ),
+                child: DropdownButton(
+                  isExpanded: true,
+                  underline: SizedBox(),
+                  items: Hostals.map((hostal) => DropdownMenuItem(
+                        child: Center(
+                          child: Text(
+                            "$hostal",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        value: hostal,
+                      )).toList(),
+                  onChanged: (val) {
+                    print(val);
+                    setState(() {
+                      hostalname = val;
+                    });
+                  },
+                  value: hostalname,
+                ),
               ),
               AnimatedContainer(
                 duration: Duration(milliseconds: 500),
-                height: UsernameErrorHeight,
+                height: hostalErrorHeight,
                 child: Text(
-                  "Provide a 10 digit username",
+                  "Select Your Hostel",
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14, color: Colors.red),
                 ),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  //Do something with the user input.
-                  email = value;
-                },
-                decoration:
-                    kTextFileDecoration.copyWith(hintText: "Enter Your Email"),
-              ),
-              AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                height: EmailErrorHeight,
-                child: Text(
-                  "Provide chitkara email id",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                obscureText: true,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  //Do something with the user input.
-                  password = value;
-                },
-                decoration: kTextFileDecoration.copyWith(
-                    hintText: "Enter Your Password"),
-              ),
-              AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                height: PasswordErrorHEight,
-                child: Text(
-                  "Password must contain @,A-Z and 0-9",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  //Do something with the user input.
-                  roomno = value;
-                },
-                decoration: kTextFileDecoration.copyWith(
-                    hintText: "Enter Your Room No."),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              DropdownButton(
-                items: Hostals.map((hostal) => DropdownMenuItem(
-                      child: Text("$hostal"),
-                      value: hostal,
-                    )).toList(),
-                onChanged: (val) {
-                  print(val);
-                  setState(() {
-                    hostalname = val;
-                  });
-                },
-                value: hostalname,
               ),
               SizedBox(
                 height: 24.0,
@@ -175,29 +238,108 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               RoundedButton(
                 color: Colors.blueAccent,
                 function: () async {
-                  bool isEmail = ValidateEmail(email);
-                  bool isPassword = ValidatePassword(password);
-                  bool isUsername = ValidateUsername(username.toString());
-                  if (!isEmail || !isPassword || !isUsername) {
-                    if (!isEmail) {
+                  print(name);
+                  print(username);
+                  print(email);
+                  print(password);
+                  print(roomno);
+
+                  if ((email == null || email == "") ||
+                      (username == null || username == "") ||
+                      (password == null || password == "") ||
+                      (name == null || name == "") ||
+                      (roomno == null || roomno == "") ||
+                      (hostalname == "Select Your Hostel")) {
+                    if (email == null || email == "") {
                       showEmailError();
                     }
-                    if (!isPassword) {
-                      showPasswordError();
-                    }
-                    if (!isUsername) {
+                    if (username == null || username == "") {
                       showUserNameError();
                     }
+                    if (password == null || password == "") {
+                      showPasswordError();
+                    }
+                    if (roomno == null || roomno == "") {
+                      showRoomError();
+                    }
+                    if (name == null || name == "") {
+                      showNameError();
+                    }
+                    if (hostalname == "Select Your Hostel") {
+                      showHostalError();
+                    }
+                    if (hostalname != "Select Your Hostel") {
+                      hideHostalError();
+                    }
+                    if (name != null && name != "") {
+                      hideNameError();
+                    }
+                    if (roomno != null && roomno != "") {
+                      hideRoomError();
+                    }
+                    if (email != null && email != "") {
+//                      hideEmailError();
+                      bool isEmail = ValidateEmail(email);
+                      if (!isEmail) {
+                        showEmailError();
+                      }
+                      if (isEmail) {
+                        hideEmailError();
+                      }
+                    }
+                    if (password != null && password != "") {
+//                      hidePasswordError();
+                      bool isPassword = ValidatePassword(password);
+                      if (!isPassword) {
+                        showPasswordError();
+                      }
+                      if (isPassword) {
+                        hidePasswordError();
+                      }
+                    }
+                    if (username != null && username != "") {
+//                      hideUserNameError();
+                      bool isUsername = ValidateUsername(username.toString());
+                      if (!isUsername) {
+                        showUserNameError();
+                      }
+                      if (isUsername) {
+                        hideUserNameError();
+                      }
+                    }
                   } else {
-                    setState(() {
-                      showSpinner = true;
-                    });
-                    //try {
+                    bool isEmail = ValidateEmail(email);
+                    bool isPassword = ValidatePassword(password);
+                    bool isUsername = ValidateUsername(username.toString());
+                    if (!isEmail || !isPassword || !isUsername) {
+                      if (!isEmail) {
+                        showEmailError();
+                      }
+                      if (!isPassword) {
+                        showPasswordError();
+                      }
+                      if (!isUsername) {
+                        showUserNameError();
+                      }
+                      if (isEmail) {
+                        hideEmailError();
+                      }
+                      if (isPassword) {
+                        hidePasswordError();
+                      }
+                      if (isUsername) {
+                        hideUserNameError();
+                      }
+                    } else {
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      //try {
 //                    final newUser = await _auth.createUserWithEmailAndPassword(
 //                        email: email, password: password);
 //                    if (newUser != null) {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, MessCard.id, (Route<dynamic> route) => false);
+                      Navigator.pushNamedAndRemoveUntil(context, MessCard.id,
+                          (Route<dynamic> route) => false);
 //                    }
 //                    setState(() {
 //                      showSpinner = false;
@@ -207,7 +349,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 //                      showSpinner = false;
 //                    });
 //                    print(e);
-                    //}
+                      //}
+                    }
                   }
                 },
                 text: 'Register',
@@ -216,6 +359,100 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomInput extends StatefulWidget {
+  CustomInput(
+      {this.filedName,
+      this.errorHeight,
+      this.hintText,
+      this.labelText,
+      this.setState,
+      this.errormessage,
+      this.obsecure,
+      this.keyBoardType});
+  final String filedName;
+  final String labelText;
+  final String hintText;
+  final double errorHeight;
+  final Function setState;
+  final String errormessage;
+  final bool obsecure;
+  final keyBoardType;
+
+  @override
+  _CustomInputState createState() => _CustomInputState();
+}
+
+class _CustomInputState extends State<CustomInput> {
+  String filedName;
+  bool obsecure;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    filedName = widget.filedName;
+    obsecure = widget.obsecure == null ? false : widget.obsecure;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        FocusScope(
+          child: Focus(
+            onFocusChange: (val) {
+              print('focus changed');
+//              print(filedName);
+              if (filedName == "123") {
+//                print('hi 123');
+                setState(() {
+                  filedName = "";
+                });
+              } else if (filedName == "") {
+//                print('hi ""');
+                setState(() {
+                  filedName = null;
+                });
+              }
+//              else {
+////                print('hi usename');
+//                widget.setState(filedName);
+//              }
+            },
+            child: TextField(
+              obscureText: obsecure,
+              keyboardType: widget.keyBoardType,
+              textAlign: TextAlign.center,
+              onTap: () {
+                filedName = "123";
+              },
+              onChanged: (value) {
+                //Do something with the user input.
+                widget.setState(value);
+              },
+              decoration: kTextFileDecoration.copyWith(
+                labelText: filedName != null ? widget.labelText : null,
+                hintText: filedName == null ? widget.hintText : null,
+              ),
+            ),
+          ),
+        ),
+        AnimatedContainer(
+          duration: Duration(milliseconds: 500),
+          height: widget.errorHeight,
+          child: Text(
+            "${widget.errormessage}",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14, color: Colors.red),
+          ),
+        ),
+        SizedBox(
+          height: 8.0,
+        ),
+      ],
     );
   }
 }

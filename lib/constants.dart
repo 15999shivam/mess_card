@@ -19,7 +19,8 @@ const kMessageContainerDecoration = BoxDecoration(
 );
 
 const kTextFileDecoration = InputDecoration(
-  hintText: 'Enter your password.',
+//  hintText: 'Enter your password.',
+
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),

@@ -13,7 +13,7 @@ bool ValidateUsername(String username) {
 
 bool ValidatePassword(String password) {
   RegExp regExp = new RegExp(
-    r"[a-zA-z]@[0-9]",
+    r"(?=.*[a-z])(?=.*[A-z])(?=.*[@$!%*#?&])(?=.*[0-9])[a-zA-Z0-9@$!%*#?&]{8,}",
     caseSensitive: false,
     multiLine: false,
   );

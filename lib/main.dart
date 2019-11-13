@@ -4,6 +4,7 @@ import 'package:mess_card/loginsystem/registration_screen.dart';
 import 'package:mess_card/loginsystem/welcome_screen.dart';
 import 'package:mess_card/messcard/Card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mess_card/SplashScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,6 +29,12 @@ class _EntryState extends State<Entry> {
     prefs = await SharedPreferences.getInstance();
     setState(() {
       isDark = prefs.getString('isDark') == 'true';
+      String user = prefs.getString('user');
+      print("i ran atleast once for user");
+      print(user);
+      String token = prefs.getString('token');
+      print("i ran atleast once for token");
+      print(token);
     });
   }
 
@@ -45,8 +52,9 @@ class _EntryState extends State<Entry> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomeScreen.id,
+      initialRoute: SplashScreen.id, //WelcomeScreen.id
       routes: {
+        SplashScreen.id: (context) => SplashScreen(),
         WelcomeScreen.id: (context) => Scaffold(
             appBar: AppBar(
               title: Text('Mess Card'),

@@ -6,6 +6,7 @@ import 'package:mess_card/messcard/Card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../utilities/utils.dart';
 import '../networkig/register.dart' as network;
+import 'package:mess_card/messcard/CardData.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = "registration_screen";
@@ -342,12 +343,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           'password': password,
                           'email': email,
                           'roomno': roomno,
-                          'hostalname': hostalname
+                          'hostelname': hostalname
                         });
                         print("result of network call" + res.toString());
-                        if (res != 0) {
+                        if (res == 1) {
                           Navigator.pushNamedAndRemoveUntil(context,
-                              MessCard.id, (Route<dynamic> route) => false);
+                              MessCard.id, (Route<dynamic> route) => false,
+                              arguments: CardData(data: CardData.DummyData));
                         } else {}
                         setState(() {
                           showSpinner = false;

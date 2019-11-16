@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mess_card/messcard/MealBox.dart';
 
 class Day extends StatefulWidget {
-  Day({this.day});
+  Day({this.day, this.meals});
   final day;
+  final meals;
   @override
   _DayState createState() => _DayState();
 }
@@ -14,6 +15,17 @@ class _DayState extends State<Day> {
   bool tea = false;
   bool dinner = false;
   bool sweet = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    breakfast = widget.meals[0];
+    lunch = widget.meals[1];
+    tea = widget.meals[2];
+    dinner = widget.meals[3];
+    sweet = widget.meals[4];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +48,15 @@ class _DayState extends State<Day> {
             children: <Widget>[
               Text("B"),
               MealBox(
-                  isChecked: breakfast,
-                  onChange: (val) {
-                    setState(() {
-                      breakfast = !breakfast;
-                    });
-                  }),
+                isChecked: breakfast,
+                onChange: (val) {
+                  setState(() {
+                    breakfast = !breakfast;
+                  });
+                },
+                day: widget.day,
+                meal: 0,
+              ),
               Text("L"),
               MealBox(
                 isChecked: lunch,
@@ -50,6 +65,8 @@ class _DayState extends State<Day> {
                     lunch = !lunch;
                   });
                 },
+                day: widget.day,
+                meal: 1,
               ),
             ],
           ),
@@ -64,6 +81,8 @@ class _DayState extends State<Day> {
                     tea = !tea;
                   });
                 },
+                day: widget.day,
+                meal: 2,
               ),
             ],
           ),
@@ -72,20 +91,26 @@ class _DayState extends State<Day> {
             children: <Widget>[
               Text("D"),
               MealBox(
-                  isChecked: dinner,
-                  onChange: (val) {
-                    setState(() {
-                      dinner = !dinner;
-                    });
-                  }),
+                isChecked: dinner,
+                onChange: (val) {
+                  setState(() {
+                    dinner = !dinner;
+                  });
+                },
+                day: widget.day,
+                meal: 3,
+              ),
               Text("S"),
               MealBox(
-                  isChecked: sweet,
-                  onChange: (val) {
-                    setState(() {
-                      sweet = !sweet;
-                    });
-                  }),
+                isChecked: sweet,
+                onChange: (val) {
+                  setState(() {
+                    sweet = !sweet;
+                  });
+                },
+                day: widget.day,
+                meal: 4,
+              ),
             ],
           ),
         ],

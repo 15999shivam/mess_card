@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mess_card/networkig/CheckBox.dart' as network;
 
 class MealBox extends StatelessWidget {
-  MealBox({this.isChecked, this.onChange});
+  MealBox({this.isChecked, this.onChange, this.day, this.meal});
   final isChecked;
   final Function onChange;
+  final day;
+  final meal;
   @override
   Widget build(BuildContext context) {
     return Checkbox(
@@ -23,10 +26,11 @@ class MealBox extends StatelessWidget {
                     children: <Widget>[
                       FlatButton(
                         onPressed: () async {
-                          http.Response res = await http
-                              .get(Uri.parse("http://192.168.43.238:8080"));
-                          print(res.body.toString());
-                          onChange(true);
+                          final res = await network.checkBox({
+                            'day': day,
+                            'meal': meal,
+                          });
+                          if (res == 1) onChange(true);
                           Navigator.of(context).pop();
                         },
                         child: Container(

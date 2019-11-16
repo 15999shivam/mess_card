@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mess_card/messcard/CardData.dart';
 
 const String PORT = "3000";
 var url = 'http://192.168.43.238:$PORT/';
@@ -19,7 +18,8 @@ Future<int> getInstance() async {
   return 1;
 }
 
-Future<CardData> authentictae() async {
+Future<int> checkBox(body) async {
+  print(json.encode(body));
   try {
     final result = await InternetAddress.lookup('google.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -31,9 +31,7 @@ Future<CardData> authentictae() async {
           print('connected our');
 
           if (await getInstance() == 0) {
-            return CardData(data: [
-              [false]
-            ]);
+            return 0;
           }
           var res;
           try {
@@ -41,9 +39,14 @@ Future<CardData> authentictae() async {
 //            print(token);
             token = "Bearer ${jsonDecode(token)}";
             print(token);
-            var response = await http.get(
-              url + "user/auth",
-              headers: {HttpHeaders.authorizationHeader: token},
+//            Map<String, String> headers = {"Content-type": "application/json"};
+            var response = await http.post(
+              url + "user/checkbox",
+              headers: {
+                HttpHeaders.authorizationHeader: token,
+                "Content-type": "application/json"
+              },
+              body: jsonEncode(body),
             );
             print('Response status: ${response.statusCode}');
             print('Response body: ${response.body}');
@@ -53,33 +56,21 @@ Future<CardData> authentictae() async {
               return res['error'];
             }
           } catch (e) {
-            return CardData(data: [
-              [false]
-            ]);
+            return 0;
           }
-          print('mai data print kar raha hu');
-          print(res['data']);
-
-          return CardData(data: res['data']);
-          ;
+          return res['sucess'];
         } else {
-          return CardData(data: [
-            [false]
-          ]);
+          return 0;
         }
       } on SocketException catch (_) {
         print('not connected');
       }
     } else {
-      return CardData(data: [
-        [false]
-      ]);
+      return 0;
     }
   } on SocketException catch (_) {
     print('not connected');
-    return CardData(data: [
-      [false]
-    ]);
+    return 0;
   }
 
 //  print(await http.read('http://example.com/foobar.txt'));

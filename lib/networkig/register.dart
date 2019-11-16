@@ -2,7 +2,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-var url = 'http://192.168.43.238:8080/';
+const String PORT = "3000";
+
+var url = 'http://192.168.43.238:$PORT/';
 SharedPreferences prefs;
 Future<int> register(body) async {
   print(body.toString());

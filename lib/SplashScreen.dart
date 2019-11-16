@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'networkig/authenticate.dart' as auth;
 import 'package:mess_card/messcard/Card.dart';
 import 'loginsystem/welcome_screen.dart';
+import 'package:mess_card/messcard/CardData.dart';
 
 void verifyLogin(BuildContext context) async {
   print('running verify token');
-  int isLoggedin = await auth.authentictae();
-  if (isLoggedin == 1) {
+  CardData isLoggedin = await auth.authentictae();
+  if (isLoggedin.data.length != 1) {
     Navigator.pushNamedAndRemoveUntil(
-        context, MessCard.id, (Route<dynamic> route) => false);
+        context, MessCard.id, (Route<dynamic> route) => false,
+        arguments: CardData(data: isLoggedin.data));
   } else {
     Navigator.pushNamedAndRemoveUntil(
         context, WelcomeScreen.id, (Route<dynamic> route) => false);

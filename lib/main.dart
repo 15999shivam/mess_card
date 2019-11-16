@@ -104,20 +104,23 @@ class _EntryState extends State<Entry> {
             ),
             body: RegistrationScreen()),
         MessCard.id: (context) => Scaffold(
-            appBar: AppBar(
-              title: Text('Mess Card'),
-              centerTitle: true,
-              actions: <Widget>[
-                Switch(
-                    value: isDark,
-                    onChanged: (val) {
-                      setState(() {
-                        isDark = !isDark;
-                      });
-                    }),
-              ],
+              appBar: AppBar(
+                title: Text('Mess Card'),
+                centerTitle: true,
+                actions: <Widget>[
+                  Switch(
+                      value: isDark,
+                      onChanged: (val) {
+                        setState(() {
+                          isDark = !isDark;
+                        });
+                      }),
+                ],
+              ),
+              body: MessCard(
+                data: ModalRoute.of(context).settings.arguments,
+              ),
             ),
-            body: MessCard()),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

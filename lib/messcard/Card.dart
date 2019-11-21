@@ -6,7 +6,8 @@ import 'CardData.dart';
 class MessCard extends StatefulWidget {
   static const String id = "Mess_Card";
   final CardData data;
-  MessCard({@required this.data});
+  final isDark;
+  MessCard({@required this.data, this.isDark});
 
   @override
   _CardState createState() => _CardState();
@@ -22,6 +23,8 @@ class _CardState extends State<MessCard> {
         itemBuilder: (BuildContext context, int index) => Day(
           day: index + 1,
           meals: widget.data.data[index],
+          isDark: widget.isDark,
+          isCurrentDay: (index + 1 == widget.data.day) ? true : false,
         ),
         staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
 //        mainAxisSpacing: 1.0,

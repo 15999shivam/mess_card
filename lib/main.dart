@@ -119,14 +119,17 @@ class _EntryState extends State<Entry> {
               ),
               body: MessCard(
                 data: ModalRoute.of(context).settings.arguments,
+                isDark: isDark,
               ),
             ),
       },
-      title: 'Flutter Demo',
+      title: 'Mess Card',
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          brightness: isDark ? Brightness.dark : Brightness.light,
-          toggleableActiveColor: isDark ? Colors.red : Colors.blue),
+        primarySwatch: Colors.blue,
+        brightness: isDark ? Brightness.dark : Brightness.light,
+        toggleableActiveColor: isDark ? Colors.red : Colors.blue,
+        disabledColor: isDark ? Colors.red : Colors.blue,
+      ),
 //      darkTheme: ThemeData(
 //          brightness: Brightness.dark,
 //          accentColor: Colors.red,

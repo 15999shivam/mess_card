@@ -1,6 +1,7 @@
 class CardData {
   final List data;
-  CardData({this.data});
+  final day;
+  CardData({this.data, this.day});
   static final List DummyData = [
     [false, false, false, false, false],
     [false, false, false, false, false],

@@ -10,7 +10,7 @@ void verifyLogin(BuildContext context) async {
   if (isLoggedin.data.length != 1) {
     Navigator.pushNamedAndRemoveUntil(
         context, MessCard.id, (Route<dynamic> route) => false,
-        arguments: CardData(data: isLoggedin.data));
+        arguments: CardData(data: isLoggedin.data, day: isLoggedin.day));
   } else {
     Navigator.pushNamedAndRemoveUntil(
         context, WelcomeScreen.id, (Route<dynamic> route) => false);

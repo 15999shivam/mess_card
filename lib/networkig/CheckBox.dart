@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mess_card/messcard/CardData.dart';
 
 const String PORT = "3000";
 var url = 'http://192.168.43.238:$PORT/';
@@ -34,8 +35,16 @@ Future<int> checkBox(body) async {
             return 0;
           }
           var res;
+          var data;
           try {
             String token = prefs.getString('token');
+            var messcard = prefs.getString('messcard');
+
+            if (messcard == null) {
+              data = CardData.DummyData;
+            } else {
+              data = jsonDecode(messcard);
+            }
 //            print(token);
             token = "Bearer ${jsonDecode(token)}";
             print(token);
@@ -58,6 +67,8 @@ Future<int> checkBox(body) async {
           } catch (e) {
             return 0;
           }
+          data[body['day'] - 1][body['meal']] = true;
+          prefs.setString('messcard', jsonEncode(data));
           return res['sucess'];
         } else {
           return 0;

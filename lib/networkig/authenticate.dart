@@ -36,51 +36,89 @@ Future<CardData> authentictae() async {
             ]);
           }
           var res;
+          var data;
           try {
             String token = prefs.getString('token');
+            var messcard = prefs.getString('messcard');
 //            print(token);
             token = "Bearer ${jsonDecode(token)}";
             print(token);
-            var response = await http.get(
-              url + "user/auth",
-              headers: {HttpHeaders.authorizationHeader: token},
-            );
-            print('Response status: ${response.statusCode}');
-            print('Response body: ${response.body}');
+            var response;
+            print(messcard);
+            if (messcard == null) {
+              response = await http.get(
+                url + "user/auth",
+                headers: {HttpHeaders.authorizationHeader: token},
+              );
+              print('Response status: ${response.statusCode}');
+              print('Response body: ${response.body}');
 
-            res = jsonDecode(response.body);
-            if (res['error'] != null) {
-              return res['error'];
+              res = jsonDecode(response.body);
+              if (res['error'] != null) {
+                print("i reached line 58");
+                return CardData(data: [
+                  [false]
+                ]);
+              }
+              data = res['data'];
+              prefs.setString('messcard', jsonEncode(data));
+            } else {
+              response = await http.get(
+                url + "user/authLocal",
+                headers: {HttpHeaders.authorizationHeader: token},
+              );
+              print('Response status: ${response.statusCode}');
+              print('Response body: ${response.body}');
+
+              res = jsonDecode(response.body);
+              if (res['error'] != null) {
+                print("i reached line 75");
+                return CardData(data: [
+                  [false]
+                ]);
+              }
+              print("i reached line 79");
+              data = jsonDecode(messcard);
+              if (res['day'] == 1) {
+                data = CardData.DummyData;
+              }
+              data[res['day']] = res['data'];
+              prefs.setString('messcard', jsonEncode(data));
             }
           } catch (e) {
+            print(e);
+            print("i reached line 86");
             return CardData(data: [
               [false]
             ]);
           }
-          print('mai data print kar raha hu');
-          print(res['data']);
-
-          return CardData(data: res['data']);
-          ;
+          print("i reached line 91");
+          return CardData(data: data, day: res['day']);
         } else {
+          print("i reached line 95");
           return CardData(data: [
             [false]
           ]);
         }
       } on SocketException catch (_) {
-        print('not connected');
+        print('not connected ours');
       }
     } else {
+      print("i reached line 103");
       return CardData(data: [
         [false]
       ]);
     }
   } on SocketException catch (_) {
-    print('not connected');
+    print("i reached line 109");
+    print('not connected google');
     return CardData(data: [
       [false]
     ]);
   }
-
+  //only for the sake of removal of warning...
+  return CardData(data: [
+    [false]
+  ]);
 //  print(await http.read('http://example.com/foobar.txt'));
 }

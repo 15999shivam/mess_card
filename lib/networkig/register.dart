@@ -16,6 +16,13 @@ Future<int> register(body) async {
 
   try {
     var res = jsonDecode(response.body);
+    print(response.body == "{}");
+    if (response.body == "{}") {
+      return 0;
+    }
+    if (res == null) {
+      return 0;
+    }
     if (res['error'] != null) {
       return res['error'];
     }
@@ -27,6 +34,9 @@ Future<int> register(body) async {
       return 0;
     }
     if (await saveUser(res['user']) == 0) {
+      return 0;
+    }
+    if (await deleteMessCard() == 0) {
       return 0;
     }
   } catch (e) {
@@ -66,6 +76,17 @@ Future<int> saveUser(user) async {
     await prefs.setString('user', jsonEncode(user));
   } catch (e) {
     print("save User problem");
+    print(e);
+    return 0;
+  }
+  return 1;
+}
+
+Future<int> deleteMessCard() async {
+  try {
+    await prefs.remove('messcard');
+  } catch (e) {
+    print("delete mess card problem");
     print(e);
     return 0;
   }

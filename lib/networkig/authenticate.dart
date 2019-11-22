@@ -38,14 +38,29 @@ Future<CardData> authentictae() async {
           var res;
           var data;
           try {
-            String token = prefs.getString('token');
-            var messcard = prefs.getString('messcard');
-//            print(token);
-            token = "Bearer ${jsonDecode(token)}";
+            var token = prefs.getString('token');
+
+//            token ??= "shivam";
+
+            if (token == null) {
+              print("i am inside token null");
+              prefs.remove('messcard');
+              return CardData(data: [
+                [false]
+              ]);
+            }
+            token = jsonDecode(token);
+            String messcard = prefs.getString('messcard');
+            print(messcard == null);
+            print(messcard);
+
+            print(token);
+            token = "Bearer $token";
             print(token);
             var response;
             print(messcard);
             if (messcard == null) {
+              print("mai null ke ander ghusss gya huuu");
               response = await http.get(
                 url + "user/auth",
                 headers: {HttpHeaders.authorizationHeader: token},
@@ -63,6 +78,7 @@ Future<CardData> authentictae() async {
               data = res['data'];
               prefs.setString('messcard', jsonEncode(data));
             } else {
+              data = jsonDecode(messcard);
               response = await http.get(
                 url + "user/authLocal",
                 headers: {HttpHeaders.authorizationHeader: token},
@@ -78,11 +94,11 @@ Future<CardData> authentictae() async {
                 ]);
               }
               print("i reached line 79");
-              data = jsonDecode(messcard);
+//              data = messcard;
               if (res['day'] == 1) {
                 data = CardData.DummyData;
               }
-              data[res['day']] = res['data'];
+              data[res['day'] - 1] = res['data'];
               prefs.setString('messcard', jsonEncode(data));
             }
           } catch (e) {

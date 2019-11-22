@@ -30,10 +30,10 @@ class _EntryState extends State<Entry> {
     setState(() {
       isDark = prefs.getString('isDark') == 'true';
       String user = prefs.getString('user');
-      print("i ran atleast once for user");
+//      print("i ran atleast once for user");
       print(user);
       String token = prefs.getString('token');
-      print("i ran atleast once for token");
+//      print("i ran atleast once for token");
       print(token);
     });
   }
@@ -106,7 +106,8 @@ class _EntryState extends State<Entry> {
         MessCard.id: (context) => Scaffold(
               appBar: AppBar(
                 title: Text('Mess Card'),
-                centerTitle: true,
+//                centerTitle: true,
+
                 actions: <Widget>[
                   Switch(
                       value: isDark,
@@ -115,6 +116,14 @@ class _EntryState extends State<Entry> {
                           isDark = !isDark;
                         });
                       }),
+                  Icon(Icons.settings),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Image.asset(
+                      'assets/logo.png',
+                      width: 35,
+                    ),
+                  ),
                 ],
               ),
               body: MessCard(

@@ -5,6 +5,8 @@ import 'package:mess_card/loginsystem/welcome_screen.dart';
 import 'package:mess_card/messcard/Card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mess_card/SplashScreen.dart';
+import 'package:mess_card/screens/settings.dart';
+import 'package:mess_card/screens/changePassword.dart';
 
 void main() => runApp(MyApp());
 
@@ -52,27 +54,47 @@ class _EntryState extends State<Entry> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: SplashScreen.id, //WelcomeScreen.id
+      initialRoute: ChangePassword
+          .id, //Settings.id, //SplashScreen.id, //WelcomeScreen.id
       routes: {
+        ChangePassword.id: (context) => ChangePassword(),
+        Settings.id: (context) => Scaffold(
+              appBar: AppBar(
+                title: Text('Mess Card'),
+                centerTitle: true,
+                actions: <Widget>[
+                  Switch(
+                      value: isDark,
+                      onChanged: (val) {
+                        setState(() {
+                          isDark = !isDark;
+                          change();
+                        });
+                      }),
+                ],
+              ),
+              body: Settings(),
+            ),
         SplashScreen.id: (context) => SplashScreen(),
         WelcomeScreen.id: (context) => Scaffold(
-            appBar: AppBar(
-              title: Text('Mess Card'),
-              centerTitle: true,
-              actions: <Widget>[
-                Switch(
-                    value: isDark,
-                    onChanged: (val) {
-                      setState(() {
-                        isDark = !isDark;
-                        change();
-                      });
-                    }),
-              ],
+              appBar: AppBar(
+                title: Text('Mess Card'),
+                centerTitle: true,
+                actions: <Widget>[
+                  Switch(
+                      value: isDark,
+                      onChanged: (val) {
+                        setState(() {
+                          isDark = !isDark;
+                          change();
+                        });
+                      }),
+                ],
+              ),
+              body: WelcomeScreen(
+                isDark: isDark,
+              ),
             ),
-            body: WelcomeScreen(
-              isDark: isDark,
-            )),
         LoginScreen.id: (context) => Scaffold(
             appBar: AppBar(
               title: Text('Mess Card'),

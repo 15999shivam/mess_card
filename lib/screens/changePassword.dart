@@ -5,9 +5,9 @@ import '../constants.dart';
 //import 'package:mess_card/messcard/CardData.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:mess_card/utilities/utils.dart';
-import 'package:mess_card/networkig/login.dart' as network;
+import 'package:mess_card/networkig/changePassword.dart' as network;
 import 'package:mess_card/components/CustomInput.dart';
-import 'package:mess_card/SplashScreen.dart';
+import 'settings.dart';
 
 class ChangePassword extends StatefulWidget {
   static const String id = "change_password";
@@ -207,19 +207,16 @@ class _ChangePassword extends State<ChangePassword> {
                       });
                       try {
                         //TODO: Do network call for change password
-                        final res = await network.login({
-                          'oldPassword': oldPassword,
-                          'username': newPassword,
-                          'password': confirmPassword,
+                        final res = await network.changePassword({
+                          'oldpassword': oldPassword,
+                          'newpassword': newPassword,
                         });
                         print("result of network call" + res.toString());
                         if (res == 1) {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            SplashScreen.id,
-                            (Route<dynamic> route) => false,
-                          );
-                        } else {}
+                          Navigator.of(context).pop();
+                        } else {
+                          //TODO:put error alerts here!
+                        }
                         setState(() {
                           showSpinner = false;
                         });

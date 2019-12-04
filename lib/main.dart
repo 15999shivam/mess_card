@@ -54,8 +54,7 @@ class _EntryState extends State<Entry> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: ChangePassword
-          .id, //Settings.id, //SplashScreen.id, //WelcomeScreen.id
+      initialRoute: SplashScreen.id, //WelcomeScreen.id
       routes: {
         ChangePassword.id: (context) => ChangePassword(),
         Settings.id: (context) => Scaffold(
@@ -138,9 +137,15 @@ class _EntryState extends State<Entry> {
                           isDark = !isDark;
                         });
                       }),
-                  Icon(Icons.settings),
+                  GestureDetector(
+                    child: Icon(Icons.settings),
+                    onTap: () {
+                      Navigator.pushNamed(context, Settings.id);
+                    },
+                  ),
                   Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     child: Image.asset(
                       'assets/logo.png',
                       width: 35,

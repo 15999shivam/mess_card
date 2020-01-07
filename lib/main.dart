@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mess_card/SplashScreen.dart';
 import 'package:mess_card/screens/settings.dart';
 import 'package:mess_card/screens/changePassword.dart';
+import 'package:mess_card/screens/mainScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,6 +45,12 @@ class _EntryState extends State<Entry> {
     await prefs.setString('isDark', isDark.toString());
   }
 
+  void toggleIsDark() {
+    setState(() {
+      isDark = !isDark;
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -56,6 +63,13 @@ class _EntryState extends State<Entry> {
     return MaterialApp(
       initialRoute: SplashScreen.id, //WelcomeScreen.id
       routes: {
+        MainScreen.id: (context) => MainScreen(
+              data: ModalRoute.of(context).settings.arguments,
+              isDark: isDark,
+              toggleDark: () {
+                toggleIsDark();
+              },
+            ),
         ChangePassword.id: (context) => ChangePassword(),
         Settings.id: (context) => Scaffold(
               appBar: AppBar(
@@ -143,14 +157,9 @@ class _EntryState extends State<Entry> {
                       Navigator.pushNamed(context, Settings.id);
                     },
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    child: Image.asset(
-                      'assets/logo.png',
-                      width: 35,
-                    ),
-                  ),
+                  SizedBox(
+                    width: 20,
+                  )
                 ],
               ),
               body: MessCard(
